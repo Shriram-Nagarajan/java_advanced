@@ -13,6 +13,13 @@ public class StreamApi {
 				.map(s -> s.trim())
 				.toList();
 	}
+	
+	// Flatmap
+	private static List<Integer> flatten(List<List<Integer>> listOfIntList) {
+		return listOfIntList.stream()
+				.flatMap(innerList -> innerList.stream())
+				.toList();
+	}
 
 	@SuppressWarnings("serial")
 	public static void main(String[] args) {
@@ -25,6 +32,24 @@ public class StreamApi {
 			}
 		};
 		log.info("Cleaned strings: " + cleanupString(strList));
+		
+		List<Integer> intList = new ArrayList<Integer>() {{
+			add(10);
+			add(100);
+			add(1000);
+		}};
+		
+		List<Integer> intList2 = new ArrayList<Integer>() {{
+			add(20);
+			add(200);
+			add(2000);
+		}};
+		
+		List<List<Integer>> listOfIntList = new ArrayList<List<Integer>>() {{
+			add(intList);
+			add(intList2);
+		}};
+		log.info("Flattened integer list: "+ flatten(listOfIntList));
 	}
 
 	private static final Logger log = Logger.getLogger(StreamApi.class.getName());
